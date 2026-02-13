@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddParticipant from "./components/AddParticipant";
 import Header from "./components/Header";
 import PersonsList from "./components/PersonsList";
@@ -8,6 +8,7 @@ import { Calculator } from "lucide-react";
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [showResult, setShowResult] = useState(false);
+  const [theme, setTheme] = useState("light");
 
   const addPerson = (name, amount) => {
     setPersons((prev) => [...prev, { id: crypto.randomUUID(), name, amount }]);
@@ -24,10 +25,21 @@ const App = () => {
   const total = persons.reduce((s, p) => s + p.amount, 0);
   const perPerson = persons.length > 0 ? total / persons.length : 0;
 
+  useEffect(() => {
+    const root = document.documentElement;
+    const isDark = theme === "dark";
+    root.classList.toggle("dark", isDark);
+  }, [theme]);
+
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-sky-50 to-indigo-50 px-4 sm:px-8 py-6 sm:py-10">
+    <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-sky-50 to-indigo-50 px-4 sm:px-8 py-6 sm:py-10 text-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-indigo-950 dark:text-slate-100 transition-colors duration-300">
       <div className="mx-auto w-full max-w-5xl flex flex-col items-center">
-        <Header />
+        <Header
+          theme={theme}
+          onToggle={() =>
+            setTheme((prev) => (prev === "dark" ? "light" : "dark"))
+          }
+        />
 
         <AddParticipant onAdd={addPerson} />
 
@@ -38,10 +50,10 @@ const App = () => {
             <button
               onClick={() => setShowResult(true)}
               size="lg"
-              className="bg-sky-600 rounded-md w-full sm:w-auto mt-4 px-5 py-2.5 flex gap-2 cursor-pointer hover:bg-sky-700 transition-transform duration-200 ease-out hover:scale-105 shadow-sm"
-            >
-              <Calculator className="text-white" />
-              <span className="text-white font-semibold">Calculate Split</span>
+            className="bg-sky-600 rounded-md w-full sm:w-auto mt-4 px-5 py-2.5 flex gap-2 cursor-pointer hover:bg-sky-700 transition-transform duration-200 ease-out hover:scale-105 shadow-sm dark:bg-sky-500/90 dark:hover:bg-sky-400"
+          >
+            <Calculator className="text-white" />
+            <span className="text-white font-semibold">Calculate Split</span>
             </button>
           </div>
         )}

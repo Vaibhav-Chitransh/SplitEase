@@ -42,8 +42,8 @@ export const calculateSettlements = (persons) => {
 const Settlement = ({ transactions, perPerson }) => {
   if (transactions.length === 0) {
     return (
-      <div className="bg-white/90 backdrop-blur shadow-lg mt-6 rounded-xl p-6 text-center w-full max-w-xl md:max-w-3xl border border-slate-200/70">
-        <p className="text-slate-600 text-sm font-semibold">
+      <div className="bg-white/90 backdrop-blur shadow-lg mt-6 rounded-xl p-6 text-center w-full max-w-xl md:max-w-3xl border border-slate-200/70 dark:bg-slate-900/70 dark:border-slate-800 transition-colors duration-300">
+        <p className="text-slate-600 text-sm font-semibold dark:text-slate-400">
           Everyone is settled up!
         </p>
       </div>
@@ -51,12 +51,12 @@ const Settlement = ({ transactions, perPerson }) => {
   }
 
   return (
-    <div className="bg-white/90 backdrop-blur shadow-lg mt-6 rounded-xl overflow-hidden w-full max-w-xl md:max-w-3xl border border-slate-200/70">
-      <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between">
-        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider">
+    <div className="bg-white/90 backdrop-blur shadow-lg mt-6 rounded-xl overflow-hidden w-full max-w-xl md:max-w-3xl border border-slate-200/70 dark:bg-slate-900/70 dark:border-slate-800 transition-colors duration-300">
+      <div className="px-6 py-4 border-b border-slate-200 flex items-center justify-between dark:border-slate-800">
+        <h2 className="text-sm font-semibold text-slate-500 uppercase tracking-wider dark:text-slate-400">
           Settlement
         </h2>
-        <span className="text-sm text-slate-500">
+        <span className="text-sm text-slate-500 dark:text-slate-400">
           ₹{perPerson.toFixed(2)} per person
         </span>
       </div>
@@ -64,18 +64,18 @@ const Settlement = ({ transactions, perPerson }) => {
         {transactions.map((t, i) => (
           <div
             key={i}
-            className="flex items-center justify-between gap-3 px-4 py-3 rounded-lg bg-slate-50 transition-colors"
+            className="flex items-center justify-between gap-3 px-4 py-3 rounded-lg bg-slate-50 transition-colors dark:bg-slate-800/60"
           >
-            <span className="font-medium text-slate-800 text-sm w-1/3 truncate">
+            <span className="font-medium text-slate-800 text-sm w-1/3 truncate dark:text-slate-100">
               {t.from}
             </span>
-            <div className="flex items-center justify-center gap-2 text-sky-700 w-1/3">
+            <div className="flex items-center justify-center gap-2 text-sky-700 w-1/3 dark:text-sky-300">
               <span className="text-xs font-semibold tabular-nums">
                 ₹{t.amount.toFixed(2)}
               </span>
               <ArrowRight className="w-4 h-4" />
             </div>
-            <span className="font-medium text-slate-800 text-sm w-1/3 text-right truncate">
+            <span className="font-medium text-slate-800 text-sm w-1/3 text-right truncate dark:text-slate-100">
               {t.to}
             </span>
           </div>
